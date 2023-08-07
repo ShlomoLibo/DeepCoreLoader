@@ -3,8 +3,8 @@ from .coresetmethod import CoresetMethod
 
 
 class Uniform(CoresetMethod):
-    def __init__(self, dst_train, args, fraction=0.5, random_seed=None, balance=False, replace=False, **kwargs):
-        super().__init__(dst_train, args, fraction, random_seed)
+    def __init__(self, dst_train, fraction=0.5, random_seed=None, balance=False, replace=False, **kwargs):
+        super().__init__(dst_train, fraction, random_seed)
         self.balance = balance
         self.replace = replace
         self.n_train = len(dst_train)
