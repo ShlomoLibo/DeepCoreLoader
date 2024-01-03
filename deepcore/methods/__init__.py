@@ -15,4 +15,5 @@ from .submodular import *
 from .uncertainty import *
 from .uniform import *
 from .oracle import *
+from .rbfnn import *
 

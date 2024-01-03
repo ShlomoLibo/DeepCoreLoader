@@ -22,12 +22,15 @@ class Oracle(CoresetMethod):
     def select(self, **kwargs):
         if self.file_path is None:
             raise ValueError('No file path specified for oracle method.')
-        data = np.loadtxt(self.file_path, delimiter=',')
+        # load data and ignore header
+        data = np.loadtxt(self.file_path, delimiter=',', skiprows=1)
         indices = data[:, 0].astype(np.int64)
         scores = data[:, 1]
         if self.reverse:
             indices = indices[np.argsort(-scores)]
         else:
             indices = indices[np.argsort(scores)]
+        # all remaining data that we don't have scores for to the end
+        indices = np.concatenate([indices, np.setdiff1d(np.arange(self.n_train), indices)])
         self.index = indices[:round(self.n_train * self.fraction)]
         return {"indices": self.index}
